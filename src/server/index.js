@@ -8,7 +8,7 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 
-const User = require('./../../models/User.js');
+const User = require('../models/User');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
@@ -31,7 +31,7 @@ passport.deserializeUser((userIdFromSession, cb) => {
 
 passport.use(new LocalStrategy((username, password, next) => {
   console.log('passport use')
-  User.findOne({ email }, (err, foundUser) => {
+  User.findOne({ username }, (err, foundUser) => {
     console.log('user. findone')
     if (err) {
       next(err);
