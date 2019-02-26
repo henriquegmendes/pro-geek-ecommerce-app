@@ -2,10 +2,8 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
-const { DB_HOST, DB_PORT, DB_NAME } = process.env;
-
 module.exports = () => {
-  mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`)
+  mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
       console.log('connected to mongodb');
     })
