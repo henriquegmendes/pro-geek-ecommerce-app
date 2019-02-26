@@ -1,0 +1,81 @@
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose')
+const Evaluation = require('../models/Evaluation.js');
+
+// GET
+router.get('/', (req, res, next) => {
+  Evaluation.find()
+    .then((response) => {
+      res.status(200).json({ response });
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+});
+
+// GET:id
+router.get('/:id', (req, res, next) => {
+  Evaluation.findOne({ _id: req.params.id })
+    .then((response) => {
+      res.status(200).json({ response });
+    })
+    .catch((err) => {
+
+    });
+});
+
+// PUT
+router.put('/:id', (req, res, next) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  Evaluation.findOneAndUpdate({ _id: req.params.id }, req.body)
+    .then((product) => {
+      res.status(200).json({ message: 'Successfully Updated' })
+    })
+    .catch(err => {
+      res.status(400).json(err)
+    });
+})
+
+
+// DELETE
+router.delete('/:id', (req, res, next) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  Evaluation.findOneAndRemove({ _id: req.params.id })
+    .then(() => {
+      res.status(200).json({
+        message: 'Successfully Deleted'
+      })
+    });
+});
+
+
+// // POST
+// router.post('/', (req, res, next) => {
+//   const { userId, products } = req.body;
+
+//   const newOrder = new Product({
+//     userId,
+//     products,
+//     status: 'produção'
+//   });
+
+//   newOrder.save((err) => {
+//     if (err) {
+//       res.status(400).json({ message: err });
+//       return;
+//     }
+//     res.status(200).json({ message: 'New product created' })
+//     return;
+//   });
+// });
+
+module.exports = router;

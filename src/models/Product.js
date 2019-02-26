@@ -5,7 +5,11 @@ const { Schema } = mongoose;
 const mySchema = new Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
-  leadTime: { type: Number, required: true },
+  leadTime: Number,
+  image: [{
+    type: String,
+    default: 'https://screenshotlayer.com/images/assets/placeholder.png'
+  }],
   description: String,
   material: String,
   height: String,
@@ -13,6 +17,10 @@ const mySchema = new Schema({
   rating: [{
     type: Schema.Types.ObjectId,
     ref: 'Evaluation'
+  }],
+  category: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Category'
   }]
 },
   {
