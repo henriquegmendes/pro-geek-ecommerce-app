@@ -1,15 +1,15 @@
-const User = require('../src/models/User.js');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-const passport = require('passport')
+const passport = require('passport');
+const User = require('../src/models/User.js');
 
 passport.serializeUser((loggedInUser, cb) => {
-  console.log('serialize')
-  cb(null, loggedInUser._id);
+  console.log('serialize');
+  cb(null, loggedInUser.id);
 });
 
 passport.deserializeUser((userIdFromSession, cb) => {
-  console.log('deserialize')
+  console.log('deserialize');
   User.findById(userIdFromSession, (err, userDocument) => {
     if (err) {
       cb(err);
@@ -20,23 +20,19 @@ passport.deserializeUser((userIdFromSession, cb) => {
 });
 
 passport.use(new LocalStrategy((username, password, next) => {
-  console.log('passport use')
-  User.findOne({ email }, (err, foundUser) => {
+  User.findOne({ username }, (err, foundUser) => {
     if (err) {
       next(err);
       return;
     }
-
     if (!foundUser) {
       next(null, false, { message: 'Incorrect username.' });
       return;
     }
-
     if (!bcrypt.compareSync(password, foundUser.password)) {
       next(null, false, { message: 'Incorrect password.' });
       return;
     }
-
     next(null, foundUser);
   });
 }));

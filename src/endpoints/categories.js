@@ -1,53 +1,48 @@
 const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const Category = require('../models/Category.js');
 
+const router = express.Router();
+
 // GET
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   Category.find()
     .then((response) => {
       res.status(200).json({ response });
     })
-    .catch((error) => {
-      throw new Error(error);
+    .catch((err) => {
+      throw new Error(err);
     });
 });
 
 // GET:id
-router.get('/:id', (req, res, next) => {
+router.get('/:id', (req, res) => {
   Category.findOne({ _id: req.params.id })
     .then((response) => {
       res.status(200).json({ response });
     })
     .catch((err) => {
-
+      throw new Error(err);
     });
 });
 
-//PATCH
-
-
 // DELETE
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-
   Category.findOneAndRemove({ _id: req.params.id })
     .then(() => {
       res.json({
         message: 'Successfully Deleted'
-      })
+      });
     });
 });
 
-
 // POST
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   const { name } = req.body;
-
   const newCategory = new Category({
     name
   });
@@ -57,8 +52,7 @@ router.post('/', (req, res, next) => {
       res.status(400).json({ message: err });
       return;
     }
-    res.status(200).json({ message: 'New Category created' })
-    return;
+    res.status(200).json({ message: 'New Category created' });
   });
 });
 

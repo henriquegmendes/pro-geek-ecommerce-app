@@ -1,80 +1,73 @@
 const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const Product = require('../models/Product.js');
 
+const router = express.Router();
+
 // GET
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   Product.find()
     .then((response) => {
       res.status(200).json({ response });
     })
-    .catch((error) => {
-      throw new Error(error);
+    .catch((err) => {
+      throw new Error(err);
     });
 });
 
 // GET:id
-router.get('/:id', (req, res, next) => {
+router.get('/:id', (req, res) => {
   Product.findOne({ _id: req.params.id })
     .then((response) => {
       res.status(200).json({ response });
     })
     .catch((err) => {
-
+      throw new Error(err);
     });
 });
 
 // PUT
-router.put('/:id', (req, res, next) => {
+router.put('/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-
   const { name, price, leadTime, image, description, material, height, manufacturer, category } = req.body;
 
   Product.findOneAndUpdate({ _id: req.params.id }, { $set: { name, price, leadTime, image, description, material, height, manufacturer, category: [] } })
     .then(() => {
       Product.findOneAndUpdate({ _id: req.params.id }, { $push: { category } })
-        .then((product) => {
-          res.json({ message: 'Successfully Updated' })
+        .then(() => {
+          res.json({ message: 'Successfully Updated' });
         })
-        .catch(err => res.status(400).json(err))
+        .catch(err => res.status(400).json(err));
     })
-    .catch(err => {
-      res.status(400).json(err)
-      //  throw new Error(err);
+    .catch((err) => {
+      res.status(400).json(err);
     });
-
-})
-
+});
 
 // DELETE
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-
   Product.findOneAndRemove({ _id: req.params.id })
     .then(() => {
       res.json({
         message: 'Successfully Deleted'
-      })
+      });
     });
 });
 
-
-
 // POST
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   const { name, price, leadTime, image, description, material, height, manufacturer, category } = req.body;
 
   if (name === '' || price === '') {
-    res.status(400).json({ message: 'Please fill name and price fields' })
+    res.status(400).json({ message: 'Please fill name and price fields' });
   }
-
   const newProduct = new Product({
     name,
     price,
@@ -87,15 +80,12 @@ router.post('/', (req, res, next) => {
     category
   });
 
-
-
   newProduct.save((err) => {
     if (err) {
       res.status(400).json({ message: err });
       return;
     }
-    res.status(200).json({ message: 'New product created' })
-    return;
+    res.status(200).json({ message: 'New product created' });
   });
 });
 

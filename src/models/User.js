@@ -18,16 +18,14 @@ const mySchema = new Schema({
     type: String,
     enum: ['User', 'Admin'],
     default: 'User'
-  },
-},
-  {
-    timestamps: {
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    }
   }
-)
-
+},
+{
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+});
 
 const User = mongoose.model('User', mySchema);
 

@@ -9,13 +9,12 @@ const mySchema = new Schema({
     ref: 'Product'
   }]
 },
-  {
-    timestamps: {
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    }
-  });
+{
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+});
 
 const Category = mongoose.model('Category', mySchema);
-
 module.exports = Category;

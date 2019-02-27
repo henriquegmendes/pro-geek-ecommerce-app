@@ -13,14 +13,12 @@ const mySchema = new Schema({
   }],
   status: { type: String, required: true }
 },
-  {
-    timestamps: {
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    }
+{
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   }
-);
+});
 
 const Order = mongoose.model('Order', mySchema);
-
 module.exports = Order;

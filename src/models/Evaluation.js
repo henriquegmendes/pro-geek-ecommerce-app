@@ -18,13 +18,12 @@ const mySchema = new Schema({
   rating: { type: Number, required: true },
   coments: String
 },
-  {
-    timestamps: {
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    }
-  });
+{
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+});
 
 const Evaluation = mongoose.model('Evaluation', mySchema);
-
 module.exports = Evaluation;
