@@ -51,11 +51,13 @@ const products = require('../endpoints/products.js');
 const orders = require('../endpoints/orders.js');
 const evaluations = require('../endpoints/evaluation.js');
 const categories = require('../endpoints/categories.js');
+const fileUpload = require('../endpoints/fileupload.js');
 
 app.use('/users', users);
 app.use('/products', products);
 app.use('/orders', orders);
 app.use('/evaluations', evaluations);
 app.use('/categories', categories);
+app.use('/file', fileUpload);
 
 module.exports = app;
