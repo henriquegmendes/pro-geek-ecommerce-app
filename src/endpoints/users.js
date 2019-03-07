@@ -113,20 +113,21 @@ router.post('/signup', (req, res) => {
 
 // POST - LOGIN
 router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, userEmail, failureDet) => {
+  passport.authenticate('local', (err, user, failureDet) => {
     if (err) {
       res.status(500).json({ message: 'email authentication got wrong' });
       return;
     }
-    if (!userEmail) {
+    if (!user) {
       res.status(401).json(failureDet);
+      return;
     }
-    req.login(userEmail, (error) => {
+    req.login(user, (error) => {
       if (error) {
         res.status(500).json({ message: 'Session save went bad.' });
         return;
       }
-      res.status(200).json(userEmail);
+      res.status(200).json({user});
     });
   })(req, res, next);
 });
