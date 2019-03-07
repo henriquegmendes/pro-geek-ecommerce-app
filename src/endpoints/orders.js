@@ -1,5 +1,5 @@
 const express = require('express');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const Order = require('../models/Order.js');
 
 const router = express.Router();
@@ -25,6 +25,41 @@ router.get('/:id', (req, res) => {
       throw new Error(err);
     });
 });
+
+
+// POST
+router.post('/', (req, res) => {
+  const { userId, products } = req.body
+  const newOrder = new Order({
+    userId,
+    products
+  });
+
+  newOrder.save((err) => {
+    if (err) {
+      res.status(400).json({ message: err });
+      return;
+    }
+    res.status(200).json({ message: 'New Order created' })
+  });
+});
+
+// PATCH
+router.patch('/:id', (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  const { status } = req.body
+
+  Order.findOneAndUpdate({ _id: req.params.id }, { $set: {status}})
+  .then( () => res.json({message: 'Order status updated'}))
+  .catch( err => res.status(400).json(err))
+
+});
+
+
 
 // // PUT
 // router.put('/:id', (req, res, next) => {
