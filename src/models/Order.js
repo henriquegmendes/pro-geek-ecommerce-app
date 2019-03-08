@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const mySchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  },
+  user: Object,
   products: [{
     type: Object,
     required: true

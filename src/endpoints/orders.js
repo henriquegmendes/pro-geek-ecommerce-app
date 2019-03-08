@@ -29,9 +29,9 @@ router.get('/:id', (req, res) => {
 
 // POST
 router.post('/', (req, res) => {
-  const { userId, products } = req.body
+  const { user, products } = req.body
   const newOrder = new Order({
-    userId,
+    user,
     products
   });
 

@@ -5,12 +5,13 @@ const { Schema } = mongoose;
 const mySchema = new Schema({
   name: { type: String, required: true },
   username: { type: String, required: true },
-  birthDate: { type: String, required: true },
+  birthDate: { type: String },
   password: { type: String, required: true },
   address: {
     street: String,
     complement: String,
-    postalCode: String
+    postalCode: String,
+    
   },
   userAvaliations: Array,
   userOrders: Array,

@@ -40,6 +40,21 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+//PUT
+router.put('/:id', (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({message: 'Specified id is not valid'});
+  }
+  const { name } = req.body;
+  console.log('########', req.body  );
+  Category.findOneAndUpdate({ _id: req.params.id }, { $set: { name } })
+    .then(() => {
+      res.json({
+        message: 'Successfully Updated'
+      })
+    })
+})
+
 // POST
 router.post('/', (req, res) => {
   const { name } = req.body;
@@ -52,7 +67,7 @@ router.post('/', (req, res) => {
       res.status(400).json({ message: err });
       return;
     }
-    res.status(200).json({ message: 'New Category created' });
+    res.status(200).json({ message: 'New Category created', category: newCategory });
   });
 });
 
