@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
 
 // PUT
 router.put('/:id', (req, res) => {
-  const { name, username } = req.body
+  const { name, username, street, complement, postalCode } = req.body
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -48,7 +48,7 @@ router.put('/:id', (req, res) => {
     res.status(400).json({ message: 'Please fill all required fields' });
     return;
   }
-  User.findOneAndUpdate({ _id: req.params.id }, {name, username})
+  User.findOneAndUpdate({ _id: req.params.id }, {name, username, address: { street, complement, postalCode }})
     .then(() => {
       res.json({ message: 'Successfully Updated' });
     })
