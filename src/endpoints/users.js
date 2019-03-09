@@ -48,7 +48,7 @@ router.put('/:id', (req, res) => {
     res.status(400).json({ message: 'Please fill all required fields' });
     return;
   }
-  User.findOneAndUpdate({ _id: req.params.id }, {name, username, address: { street, complement, postalCode }})
+  User.findOneAndUpdate({ _id: req.params.id }, { name, username, address: { street, complement, postalCode } })
     .then(() => {
       res.json({ message: 'Successfully Updated' });
     })
@@ -56,6 +56,20 @@ router.put('/:id', (req, res) => {
       res.json(err);
     });
 });
+
+// PATCH
+router.patch('/:id', (req, res) => {
+  const { userAvaliations, userOrders } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+  User.findByIdAndUpdate({ _id: req.params.id }, { $push: { userAvaliations, userOrders } })
+    .then(() => {
+      res.json({ message: 'Successfully Updated' });
+    })
+    .catch(err => res.status(400).json(err));
+})
 
 // DELETE
 router.delete('/:id', (req, res) => {
@@ -132,7 +146,7 @@ router.post('/login', (req, res, next) => {
         res.status(500).json({ message: 'Session save went bad.' });
         return;
       }
-      res.status(200).json({user});
+      res.status(200).json({ user });
     });
   })(req, res, next);
 });
