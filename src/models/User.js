@@ -8,10 +8,12 @@ const mySchema = new Schema({
   birthDate: { type: String },
   password: { type: String, required: true },
   address: {
-    street: String,
-    complement: String,
-    postalCode: String,
-    
+    type: Object,
+    default: {
+      street: '',
+      complement: '',
+      postalCode: ''
+    }
   },
   userAvaliations: Array,
   userOrders: Array,
@@ -21,12 +23,12 @@ const mySchema = new Schema({
     default: 'User'
   }
 },
-{
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
-  }
-});
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
+    }
+  });
 
 const User = mongoose.model('User', mySchema);
 
