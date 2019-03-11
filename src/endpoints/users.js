@@ -90,20 +90,20 @@ router.delete('/:id', (req, res) => {
 router.post('/signup', (req, res) => {
   const { name, username, birthDate, password } = req.body;
   if (!name || !username || !birthDate || !password) {
-    res.status(400).json({ message: 'Please fill all required fields' });
+    res.json({ message: 'Please fill all required fields' });
     return;
   }
   if (password.length < 5) {
-    res.status(400).json({ message: 'Please make your password at least 6 characters long for security purposes.' });
+    res.json({ message: 'Please make your password at least 6 characters long for security purposes.' });
     return;
   }
   User.findOne({ username }, (err, found) => {
     if (err) {
-      res.status(500).json({ message: 'Email check went bad.' });
+      res.json({ message: 'Email check went bad.' });
       return;
     }
     if (found) {
-      res.status(400).json({ message: 'Email already taken. Please choose another one.' });
+      res.json({ message: 'Email already taken. Please choose another one.' });
       return;
     }
     const salt = bcrypt.genSaltSync(10);
@@ -117,12 +117,12 @@ router.post('/signup', (req, res) => {
 
     newUser.save((error) => {
       if (error) {
-        res.status(400).json({ message: 'Saving user to database went wrong.' });
+        res.json({ message: 'Saving user to database went wrong.' });
       }
     });
     req.login(newUser, (error) => {
       if (error) {
-        res.status(500).json({ message: 'Login after signup went bad.' });
+        res.json({ message: 'Login after signup went bad.' });
         return;
       }
       res.status(200).json(newUser);
@@ -134,16 +134,16 @@ router.post('/signup', (req, res) => {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, failureDet) => {
     if (err) {
-      res.status(500).json({ message: 'email authentication got wrong' });
+      res.json({ message: 'email authentication got wrong' });
       return;
     }
     if (!user) {
-      res.status(401).json(failureDet);
+      res.json(failureDet);
       return;
     }
     req.login(user, (error) => {
       if (error) {
-        res.status(500).json({ message: 'Session save went bad.' });
+        res.json({ message: 'Session save went bad.' });
         return;
       }
       res.status(200).json({ user });
