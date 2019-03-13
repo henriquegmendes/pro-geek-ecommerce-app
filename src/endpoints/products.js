@@ -47,6 +47,24 @@ router.put('/:id', (req, res) => {
     });
 });
 
+//DELETE COMMENT
+router.put('/comment/:id', (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+  const { rating } = req.body;
+
+  Product.findOneAndUpdate({ _id: req.params.id }, { $set: { rating } })
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
+// PATCH
 router.patch('/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
