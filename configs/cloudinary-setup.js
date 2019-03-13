@@ -10,7 +10,7 @@ cloudinary.config({
 
 const storage = cloudinaryStorage({
   cloudinary,
-  folder: 'pro-geek-ecommerce',
+  folder: 'pro-geek-ecommerce/product-pictures',
   allowedFormats: ['jpg', 'png'],
   filename(req, res, cb) {
     cb(null, res.originalname);
