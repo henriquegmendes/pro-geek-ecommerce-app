@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
 
 // PUT
 router.put('/:id', (req, res) => {
-  const { name, username, street, complement, postalCode } = req.body
+  const { name, username, street, complement, postalCode } = req.body;
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
@@ -69,7 +69,7 @@ router.patch('/:id', (req, res) => {
       res.json({ message: 'Successfully Updated' });
     })
     .catch(err => res.status(400).json(err));
-})
+});
 
 // DELETE
 router.delete('/:id', (req, res) => {

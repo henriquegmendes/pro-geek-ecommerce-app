@@ -19,7 +19,6 @@ const mySchema = new Schema({
   userOrders: Array,
   role: {
     type: String,
-    enum: ['User', 'Admin'],
     default: 'User'
   }
 },
