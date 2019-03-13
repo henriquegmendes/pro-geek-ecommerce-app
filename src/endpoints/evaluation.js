@@ -56,24 +56,26 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-// // POST
-// router.post('/', (req, res, next) => {
-//   const { userId, products } = req.body;
+// POST
+router.post('/', (req, res, next) => {
+  const { rating, comment, userId, productId, orderId } = req.body;
 
-//   const newOrder = new Product({
-//     userId,
-//     products,
-//     status: 'produção'
-//   });
+  const newEvaluation = new Evaluation({
+    rating,
+    comment,
+    userId,
+    productId,
+    orderId
+  });
 
-//   newOrder.save((err) => {
-//     if (err) {
-//       res.status(400).json({ message: err });
-//       return;
-//     }
-//     res.status(200).json({ message: 'New product created' })
-//     return;
-//   });
-// });
+  newEvaluation.save((err, obj) => {
+    if (err) {
+      res.status(400).json({ message: err });
+      return;
+    }
+    res.status(200).json({ obj })
+    return;
+  });
+});
 
 module.exports = router;
