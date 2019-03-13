@@ -14,10 +14,7 @@ const mySchema = new Schema({
   material: String,
   height: String,
   manufacturer: String,
-  rating: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Evaluation'
-  }],
+  rating: [Object],
   category: [{
     type: Schema.Types.ObjectId,
     ref: 'Category'

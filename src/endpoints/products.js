@@ -32,9 +32,9 @@ router.put('/:id', (req, res) => {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-  const { name, price, leadTime, image, description, material, height, manufacturer, category } = req.body;
+  const { name, price, rating, leadTime, image, description, material, height, manufacturer, category } = req.body;
 
-  Product.findOneAndUpdate({ _id: req.params.id }, { $set: { name, price, leadTime, image, description, material, height, manufacturer, category: [] } })
+  Product.findOneAndUpdate({ _id: req.params.id }, { $set: { name, price, leadTime, image, description, material, height, manufacturer, category: [] }, $push: { rating } })
     .then(() => {
       Product.findOneAndUpdate({ _id: req.params.id }, { $push: { category } })
         .then(() => {
@@ -45,6 +45,20 @@ router.put('/:id', (req, res) => {
     .catch((err) => {
       res.status(400).json(err);
     });
+});
+
+router.patch('/:id', (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  const { rating } = req.body
+
+  Product.findOneAndUpdate({ _id: req.params.id }, { $push: {rating}})
+  .then( () => res.json({message: 'Rating updated'}))
+  .catch( err => res.status(400).json(err))
+
 });
 
 // DELETE
@@ -80,12 +94,12 @@ router.post('/', (req, res) => {
     category
   });
 
-  newProduct.save((err) => {
+  newProduct.save((err, obj) => {
     if (err) {
       res.status(400).json({ message: err });
       return;
     }
-    res.status(200).json({ message: 'New product created' });
+    res.status(200).json( obj );
   });
 });
 
