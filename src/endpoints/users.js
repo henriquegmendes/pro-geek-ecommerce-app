@@ -88,7 +88,7 @@ router.delete('/:id', (req, res) => {
 // AUTH-ROUTES --- POSTS ROUTES + GET /loggedin
 // POST - SIGNUP
 router.post('/signup', (req, res) => {
-  const { name, username, birthDate, password } = req.body;
+  const { name, username, birthDate, password, role } = req.body;
   if (!name || !username || !birthDate || !password) {
     res.json({ message: 'Please fill all required fields' });
     return;
@@ -112,6 +112,7 @@ router.post('/signup', (req, res) => {
       name,
       username,
       birthDate,
+      role,
       password: hashPass
     });
 

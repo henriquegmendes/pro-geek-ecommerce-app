@@ -56,7 +56,7 @@ router.patch('/:id', (req, res) => {
   const { rating } = req.body
 
   Product.findOneAndUpdate({ _id: req.params.id }, { $push: {rating}})
-  .then( () => res.json({message: 'Rating updated'}))
+  .then( (response) => res.json(response))
   .catch( err => res.status(400).json(err))
 
 });

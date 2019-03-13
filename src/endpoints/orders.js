@@ -51,10 +51,10 @@ router.patch('/:id', (req, res) => {
     return;
   }
 
-  const { status } = req.body
+  const { status, products } = req.body
 
-  Order.findOneAndUpdate({ _id: req.params.id }, { $set: {status}})
-  .then( () => res.json({message: 'Order status updated'}))
+  Order.findOneAndUpdate({ _id: req.params.id }, { $set: { status, products } })
+  .then( (response) => res.json(response))
   .catch( err => res.status(400).json(err))
 
 });
