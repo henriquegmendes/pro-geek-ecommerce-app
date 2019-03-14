@@ -36,7 +36,7 @@ app.use(passport.session());
 // CORS
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000']
+  origin: ['https://pro-geek.surge.sh']
 }));
 
 // Routes Response Listener

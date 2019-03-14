@@ -6,10 +6,17 @@ const mySchema = new Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
   leadTime: Number,
+<<<<<<< HEAD
   image: {
     type: Array,
     default: ['https://res.cloudinary.com/dobzwgcvl/image/upload/v1552593758/pro-geek-ecommerce/product-pictures/default.png']
   },
+=======
+  image: [{
+    type: String,
+    default: 'https://res.cloudinary.com/dobzwgcvl/image/upload/v1552593758/pro-geek-ecommerce/product-pictures/default.png'
+  }],
+>>>>>>> 4cadbdddbc82b383f9e60686a121f8ddbbb196d1
   description: String,
   material: String,
   height: String,
