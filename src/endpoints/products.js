@@ -97,6 +97,7 @@ router.post('/', (req, res) => {
   const { name, price, leadTime, image, description, material, height, manufacturer, category } = req.body;
   if (name === '' || price === '') {
     res.status(400).json({ message: 'Please fill name and price fields' });
+    return;
   }
   const newProduct = new Product({
     name,
