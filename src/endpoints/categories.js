@@ -40,20 +40,19 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-//PUT
+// PUT
 router.put('/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    res.status(400).json({message: 'Specified id is not valid'});
+    res.status(400).json({ message: 'Specified id is not valid' });
   }
   const { name } = req.body;
-  console.log('########', req.body  );
   Category.findOneAndUpdate({ _id: req.params.id }, { $set: { name } })
     .then(() => {
       res.json({
         message: 'Successfully Updated'
-      })
-    })
-})
+      });
+    });
+});
 
 // POST
 router.post('/', (req, res) => {

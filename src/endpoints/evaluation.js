@@ -57,7 +57,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // POST
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   const { rating, comment, userId, productId, orderId } = req.body;
 
   const newEvaluation = new Evaluation({
@@ -73,7 +73,7 @@ router.post('/', (req, res, next) => {
       res.status(400).json({ message: err });
       return;
     }
-    res.status(200).json({ obj })
+    res.status(200).json({ obj });
     return;
   });
 });

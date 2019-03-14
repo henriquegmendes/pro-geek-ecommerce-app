@@ -32,9 +32,9 @@ router.put('/:id', (req, res) => {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-  const { name, price, rating, leadTime, image, description, material, height, manufacturer, category } = req.body;
+  const { name, price, leadTime, image, description, material, height, manufacturer, category } = req.body;
 
-  Product.findOneAndUpdate({ _id: req.params.id }, { $set: { name, price, leadTime, image, description, material, height, manufacturer, category: [] }, $push: { rating } })
+  Product.findOneAndUpdate({ _id: req.params.id }, { $set: { name, price, leadTime, image, description, material, height, manufacturer, category: [] } })
     .then(() => {
       Product.findOneAndUpdate({ _id: req.params.id }, { $push: { category } })
         .then(() => {
@@ -47,7 +47,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-//DELETE COMMENT
+// DELETE COMMENT
 router.put('/comment/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
@@ -71,12 +71,11 @@ router.patch('/:id', (req, res) => {
     return;
   }
 
-  const { rating } = req.body
+  const { rating } = req.body;
 
-  Product.findOneAndUpdate({ _id: req.params.id }, { $push: {rating}})
-  .then( (response) => res.json(response))
-  .catch( err => res.status(400).json(err))
-
+  Product.findOneAndUpdate({ _id: req.params.id }, { $push: { rating } })
+    .then(response => res.json(response))
+    .catch(err => res.status(400).json(err));
 });
 
 // DELETE
@@ -96,7 +95,6 @@ router.delete('/:id', (req, res) => {
 // POST
 router.post('/', (req, res) => {
   const { name, price, leadTime, image, description, material, height, manufacturer, category } = req.body;
-
   if (name === '' || price === '') {
     res.status(400).json({ message: 'Please fill name and price fields' });
   }
@@ -117,7 +115,7 @@ router.post('/', (req, res) => {
       res.status(400).json({ message: err });
       return;
     }
-    res.status(200).json( obj );
+    res.status(200).json(obj);
   });
 });
 

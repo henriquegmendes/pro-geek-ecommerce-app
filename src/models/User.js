@@ -5,7 +5,6 @@ const { Schema } = mongoose;
 const mySchema = new Schema({
   name: { type: String, required: true },
   username: { type: String, required: true },
-  birthDate: { type: String },
   password: { type: String, required: true },
   address: {
     type: Object,
@@ -22,12 +21,12 @@ const mySchema = new Schema({
     default: 'User'
   }
 },
-  {
-    timestamps: {
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    }
-  });
+{
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+});
 
 const User = mongoose.model('User', mySchema);
 
