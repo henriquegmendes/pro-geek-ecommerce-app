@@ -32,9 +32,9 @@ router.put('/:id', (req, res) => {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-  const { name, price, rating, leadTime, image, description, material, height, manufacturer, category } = req.body;
+  const { name, price, leadTime, image, description, material, height, manufacturer, category } = req.body;
 
-  Product.findOneAndUpdate({ _id: req.params.id }, { $set: { name, price, leadTime, image, description, material, height, manufacturer, category: [] }, $push: { rating } })
+  Product.findOneAndUpdate({ _id: req.params.id }, { $set: { name, price, leadTime, image, description, material, height, manufacturer, category: [] } })
     .then(() => {
       Product.findOneAndUpdate({ _id: req.params.id }, { $push: { category } })
         .then(() => {
