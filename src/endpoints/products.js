@@ -57,7 +57,7 @@ router.put('/comment/:id', (req, res) => {
 
   Product.findOneAndUpdate({ _id: req.params.id }, { $set: { rating } })
     .then((response) => {
-      res.json(response)
+      res.json(response);
     })
     .catch((err) => {
       res.status(400).json(err);
