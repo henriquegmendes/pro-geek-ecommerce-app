@@ -8,7 +8,7 @@ const mySchema = new Schema({
   leadTime: Number,
   image: [{
     type: String,
-    default: 'https://screenshotlayer.com/images/assets/placeholder.png'
+    default: 'https://res.cloudinary.com/dobzwgcvl/image/upload/v1552593758/pro-geek-ecommerce/product-pictures/default.png'
   }],
   description: String,
   material: String,
