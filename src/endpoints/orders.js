@@ -29,18 +29,18 @@ router.get('/:id', (req, res) => {
 
 // POST
 router.post('/', (req, res) => {
-  const { user, products } = req.body
+  const { user, products } = req.body;
   const newOrder = new Order({
     user,
     products
   });
 
-  newOrder.save((err) => {
+  newOrder.save((err, response) => {
     if (err) {
       res.status(400).json({ message: err });
       return;
     }
-    res.status(200).json({ message: 'New Order created' })
+    res.status(200).json({ response });
   });
 });
 
@@ -51,12 +51,11 @@ router.patch('/:id', (req, res) => {
     return;
   }
 
-  const { status, products } = req.body
+  const { status, products } = req.body;
 
   Order.findOneAndUpdate({ _id: req.params.id }, { $set: { status, products } })
-  .then( (response) => res.json(response))
-  .catch( err => res.status(400).json(err))
-
+    .then(response => res.json(response))
+    .catch(err => res.status(400).json(err));
 });
 
 module.exports = router;
