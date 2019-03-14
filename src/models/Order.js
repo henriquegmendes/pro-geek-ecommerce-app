@@ -10,7 +10,7 @@ const mySchema = new Schema({
   }],
   status: {
     type: String,
-    default: 'Delivered'
+    default: 'In production'
   }
 },
   {
