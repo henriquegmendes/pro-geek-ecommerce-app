@@ -37,8 +37,8 @@ router.put('/:id', (req, res) => {
   Product.findOneAndUpdate({ _id: req.params.id }, { $set: { name, price, leadTime, image, description, material, height, manufacturer, category: [] } })
     .then(() => {
       Product.findOneAndUpdate({ _id: req.params.id }, { $push: { category } })
-        .then(() => {
-          res.json({ message: 'Successfully Updated' });
+        .then((response) => {
+          res.json({ response });
         })
         .catch(err => res.status(400).json(err));
     })
