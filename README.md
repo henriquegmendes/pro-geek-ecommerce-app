@@ -16,7 +16,7 @@ It was 3 weeks with a lot of work and dedication after almost 2 months bootcampi
 * Link to API: [https://pro-geek-ecommerce-api.herokuapp.com/]
 * Endpoints: "/users", "/categories", "/products", "/orders", "/evaluations"
 
-* Link to Front-End aplication: [https://pro-geek-ecommerce.herokuapp.com/]
+* Link to Front-End aplication: [https://pro-geek-surge.sh]
 * Link to Front-End repository: [https://github.com/henriquegmendes/pro-geek-ecommerce-app-front-end-react]
 
 ## Additional implementations and improvements
